@@ -191,3 +191,18 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login?: string | null };
+
+export type Add_Medical_RecordMutationVariables = Exact<{
+  investigations: Array<Scalars['ID']> | Scalars['ID'];
+  ctscan: Scalars['String'];
+  mri: Scalars['String'];
+  developer: Scalars['String'];
+}>;
+
+
+export type Add_Medical_RecordMutation = { __typename?: 'Mutation', add_medical_record?: { __typename?: 'MedicalRecord', id: string, ctscan: string, mri: string, created_at: any, patient: { __typename?: 'User', id: string, name: string, email: string }, investigations: Array<{ __typename?: 'Investigation', id: string, title: string, type: { __typename?: 'InvestigationType', id: string, title: string } }> } | null };
+
+export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_1_Query = { __typename?: 'Query', investigations: Array<{ __typename?: 'Investigation', id: string, title: string, type: { __typename?: 'InvestigationType', id: string, title: string } }> };

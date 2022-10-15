@@ -1,0 +1,10 @@
+{
+  investigations {
+    id
+    title
+    type {
+      id
+      title
+    }
+  }
+}

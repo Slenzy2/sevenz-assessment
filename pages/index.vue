@@ -10,13 +10,23 @@
           <v-spacer />
           <v-btn
             depressed
-            @click="signIn"
-            large
-            color="primary"
+            :large="true"
             class="my-4 font-weight-bold"
+            color="primary"
+            @click="signIn"
           >
             Login
           </v-btn>
+
+          <!-- <v-btn
+            depressed
+            :large="true"
+            class="my-4 font-weight-bold"
+            color="primary"
+            @click="getToken"
+          >
+            get Token
+          </v-btn> -->
           <v-spacer />
         </v-row>
       </v-card>
@@ -26,23 +36,40 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import gql from 'graphql-tag'
+import { ApolloHelpers } from '@nuxtjs/apollo/types/index'
 import login from '../gql/queries/auth.gql'
 export default Vue.extend({
   name: 'IndexPage',
+  data() {
+    const apolloHelpers: any = this.$apolloHelpers
+    const loading: boolean = false
+    return {
+      apolloHelpers,
+      loading,
+    }
+  },
   methods: {
     async signIn() {
-      await this.$apollo
-        .mutate({
-          mutation: login,
-          variables: {
-            email: 'tester@kompletecare.com',
-            password: 'password',
-          },
-        })
-        .then((data) => {
-          console.log(data)
-        })
+      if (!this.apolloHelpers.getToken()) {
+        this.loading = true
+        const res = await this.$apollo
+          .mutate({
+            mutation: login,
+            variables: {
+              email: 'tester@kompletecare.com',
+              password: 'password',
+            },
+          })
+          .then((data) => {
+            return data.data.login
+          })
+        await this.apolloHelpers.onLogin(res)
+        if (res) {
+          this.$router.push('/dashbord')
+        }
+      } else {
+        this.$router.push('/dashboard')
+      }
     },
   },
 })

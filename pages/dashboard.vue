@@ -32,13 +32,13 @@
             <v-divider class="my-4"></v-divider>
           </div>
 
-          <div class="category" v-for="item in data" :key="item.id">
-            <div class="primary--text">{{ item.title }}</div>
+          <div v-for="item in data" :key="item.id" class="category">
+            <div class="primary--text">{{ item.name }}</div>
 
             <div class="checkbox-containers">
               <v-checkbox
+                v-for="investigation in item.data"
                 v-show="data"
-                v-for="investigation in item.investigations"
                 :key="investigation.id"
                 v-model="selected"
                 :label="investigation.title"
@@ -55,8 +55,8 @@
               <v-col class="" cols="6">
                 <div class="my-2">CT Scan</div>
                 <v-select
-                  :items="ctscan"
                   v-model="selectedCtscan"
+                  :items="ctscan"
                   placeholder="*Specify"
                   outlined
                 ></v-select>
@@ -76,19 +76,19 @@
         <v-row class="px-5">
           <v-spacer />
           <v-btn
+            class="text-capitalize"
             depressed
             color="primary"
-            @click="updateData"
-            class="text-capitalize"
+            @click="createMedicalRecord"
           >
             Save and Send
           </v-btn>
         </v-row>
       </v-card>
     </v-col>
-    <v-snackbar color="green" v-model="snackbar" :timeout="5000" class="py-0">
+    <v-snackbar v-model="snackbar" color="green" :timeout="5000" class="py-0">
       <div class="font-weight-bold subtitle-2">Record saved successfully</div>
-      <template v-slot:action="{ attrs }">
+      <template #action="{ attrs }">
         <v-btn
           rounded
           color="white"
@@ -104,7 +104,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+import investigations from '../gql/queries/investigations.gql'
+import addMedicalRecord from '../gql/queries/createRecord.gql'
+// import gql from 'graphql-tag'
 export default {
   name: 'DashboardPage',
   data() {
@@ -112,7 +114,6 @@ export default {
       snackbar: false,
       skeleton: true,
       selected: [],
-      data: '',
       ctscan: [
         'Scan needed in the left cerebral hemisphere',
         'Scan needed in the right cerebral hemisphere',
@@ -128,48 +129,52 @@ export default {
       ],
       selectedCtscan: '',
       selectedMRI: '',
-      api: 'https://testdrive.kompletecare.com/api/investigations',
+      data: null,
+      investigation: investigations,
+      createRecord: addMedicalRecord,
     }
   },
-  methods: {
-    getData() {
-      axios({
-        method: 'GET',
-        url: `${this.api}`,
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-          Accept: 'application/json',
-        },
-      }).then((response) => {
-        this.data = response.data.data
-        console.log(response)
-      })
-    },
-    updateData() {
-      const formData = new FormData()
-      for (let i = 0; i < this.selected.length; i++) {
-        formData.append(`investigations[${i}]`, this.selected[i])
-      }
-      formData.append('ctscan', `${this.selectedCtscan} `)
-      formData.append('mri', `${this.selectedMRI}`)
-      formData.append('developer', 'Developer')
 
-      axios({
-        method: 'POST',
-        url: `${this.api}`,
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-          Accept: 'application/json',
-        },
-        data: formData,
-      }).then((response) => {
-        console.log(response)
-        this.snackbar = true
+  async mounted() {
+    await this.$apollo
+      .query({
+        query: this.investigation,
       })
-    },
+      .then((data) => {
+        this.data = data.data.investigations
+        this.skeleton = false
+        const arr1 = []
+        const arr2 = []
+        this.data.forEach((item) => {
+          if (item.type.id === '1') {
+            arr1.push(item)
+          }
+          if (item.type.id === '2') {
+            arr2.push(item)
+          }
+        })
+        this.data = [
+          { name: 'X-Ray', data: arr1 },
+          { name: 'Ultrasound Scan', data: arr2 },
+        ]
+      })
   },
-  mounted() {
-    this.getData()
+  methods: {
+    createMedicalRecord() {
+      this.$apollo
+        .mutate({
+          mutation: this.createRecord,
+          variables: {
+            investigations: this.selected,
+            ctscan: this.selectedCtscan,
+            mri: this.selectedMRI,
+            developer: 'Developer',
+          },
+        })
+        .then(({ data }) => {
+          this.snackbar = true
+        })
+    },
   },
 }
 </script>
