@@ -1,4 +1,7 @@
-const secondSetOfLinks = [
+const secondSetOfLinks: {
+  name: String
+  icon_name: String
+}[] = [
   {
     name: 'Account Settings',
     icon_name: 'mdi-cog-outline',

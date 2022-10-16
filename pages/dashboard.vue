@@ -1,10 +1,10 @@
 <template>
   <v-row justify="center" class="category">
-    <v-col cols="12" sm="8" md="11">
+    <v-col cols="12" sm="11" md="11">
       <h1 class="primary--text font-weight-normal">
         Update Patient Medical Record
       </h1>
-      <div class="grey--text caption my-3">
+      <div class="grey--text caption my-3 sub_text">
         Click the tabs to view and edit patient medical details
       </div>
       <v-card class="white records_card mt-5" flat>
@@ -77,7 +77,7 @@
         <v-row class="px-5">
           <v-spacer />
           <v-btn
-            class="text-capitalize"
+            class="text-capitalize save_btn"
             depressed
             color="primary"
             :loading="load"
@@ -99,7 +99,7 @@
           class="heart animate__animated animate__pulse animate__repeat-2"
         ></v-img>
 
-        <v-card-text class="text-h6 text-center">
+        <v-card-text class="text-h6 text-center success_text">
           Congratulations, your medical record has been successfully updated on
           the database
         </v-card-text>
@@ -219,7 +219,8 @@ export default {
   padding: 2% 5% 5%;
 }
 .category {
-  width: 100%;
+  width: 100% !important;
+  margin: 0;
 }
 .checkbox_cont {
   display: grid;
@@ -234,5 +235,45 @@ export default {
   border-radius: 50%;
   text-align: center;
   margin: 3% auto;
+}
+@media screen and (max-width: 1100px) {
+  .checkbox_cont {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .checkbox .v-label {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 980px) {
+  .category h1 {
+    font-size: 1.55rem;
+  }
+}
+@media screen and (max-width: 840px) {
+  .checkbox .v-label {
+    font-size: 0.85rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  .checkbox_cont {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .checkbox .v-label {
+    font-size: 0.8rem;
+  }
+  .category h1 {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  .headline,
+  .save_btn {
+    margin-bottom: 4%;
+  }
+  .v-messages {
+    display: none;
+  }
+  .success_text {
+    font-size: 1rem !important;
+  }
 }
 </style>

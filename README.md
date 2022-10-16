@@ -19,6 +19,7 @@ Pages available:
 Others:
 
 - Logout button
+- Responsive view
 
 ## Build Setup
 

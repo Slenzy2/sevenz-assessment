@@ -1,4 +1,8 @@
-const firstSetOfLinks = [
+const firstSetOfLinks: {
+  name: String
+  icon_name: String
+  to?: String | undefined
+}[] = [
   {
     name: 'Dashboard',
     icon_name: 'mdi-view-dashboard',
