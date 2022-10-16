@@ -1,12 +1,21 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="12">
-      <v-card class="white main" flat>
-        <div class="primary--text text-center display-1 my-5 font-weight-bold">
-          WELCOME TO SEVENZ HEALTHCARE
-        </div>
+  <div class="homepage">
+    <div class="card text-center">
+      <div class="animate__animated animate__fadeInDownBig">
+        <h2 class="primary--text">SEVENZ HEALTHCARE</h2>
 
-        <v-row class="px-5">
+        <p class="welcome_text">
+          Welcome to the
+          <span class="primary--text">SEVENZ HEALTHCARE</span> medical record
+          dashboard.
+        </p>
+
+        <p>
+          You are to click the button below for an automatic authentication to
+          your dashboard
+        </p>
+
+        <v-row class="px-5 mt-3">
           <v-spacer />
           <v-btn
             depressed
@@ -21,9 +30,9 @@
 
           <v-spacer />
         </v-row>
-      </v-card>
-    </v-col>
-  </v-row>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -68,3 +77,45 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+.homepage {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+}
+.card {
+  width: 60%;
+  /* height: 60%; */
+  border-radius: 25px;
+  margin: auto;
+  padding: 5%;
+  display: grid;
+  align-items: center;
+  background: white;
+  border: 6px solid rgb(42, 54, 164, 0.8) !important;
+}
+.card h2 {
+  font-size: 2rem;
+  margin: 3% 0;
+}
+.card .welcome_text {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+span {
+  font-weight: 900;
+}
+
+.v-btn {
+  border-radius: 7px !important;
+}
+
+.card .v-btn {
+  width: 30%;
+}
+</style>

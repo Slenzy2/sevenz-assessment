@@ -122,21 +122,10 @@
     </v-dialog>
 
     <!-- Notification snackbar  -->
-    <v-snackbar v-model="snackbar" :timeout="6000" color="red" class="py-0">
-      <div class="font-weight-bold subtitle-2">
+    <v-snackbar v-model="snackbar" :timeout="4000" color="red" class="py-0">
+      <div class="font-weight-bold subtitle-2 text-center">
         Please make the necesary selections
       </div>
-      <template #action="{ attrs }">
-        <v-btn
-          rounded
-          color="white"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </template>
     </v-snackbar>
   </v-row>
 </template>
@@ -226,8 +215,6 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,700&display=swap');
-
 .records_card {
   padding: 2% 5% 5%;
 }

@@ -10,12 +10,13 @@
     >
       <v-list>
         <v-list-item
-          v-for="(link, index) in firstSetOfLinks"
+          v-for="(link, index) in first"
           :key="index"
           :to="link.to"
           router
           exact
           class="my-1"
+          @click="logout(link.name)"
         >
           <v-list-item-action>
             <v-icon>{{ link.icon_name }}</v-icon>
@@ -29,7 +30,7 @@
 
       <v-list>
         <v-list-item
-          v-for="(link, index) in secondSetOfLinks"
+          v-for="(link, index) in second"
           :key="index"
           :to="link.to"
           router
@@ -47,7 +48,11 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar v-if="$route.name !== 'index'" class="secondary nav-bar" flat>
+    <v-app-bar
+      v-if="$route.name !== 'index'"
+      class="secondary navigation_bar"
+      flat
+    >
       <v-spacer />
       <div class="lighter_purple mx-3">Take a tour</div>
       <v-badge dot color="error" class="mx-3" overlap>
@@ -82,7 +87,7 @@
         <!-- Notification snackbar  -->
         <v-snackbar
           v-model="snackbar"
-          :timeout="6000"
+          :timeout="4000"
           color="green"
           class="py-0"
         >
@@ -96,59 +101,16 @@
 </template>
 
 <script>
+import firstSetOfLinks from '../Utils/firstSetOfLinks'
+import secondSetOfLinks from '../Utils/secondSetOfLinks'
 export default {
   name: 'DefaultLayout',
   data() {
-    const firstSetOfLinks = [
-      {
-        name: 'Dashboard',
-        icon_name: 'mdi-view-dashboard',
-        to: '/dashboard',
-      },
-      {
-        name: 'Profile',
-        icon_name: 'mdi-account',
-      },
-      {
-        name: 'Services',
-        icon_name: 'mdi-toolbox-outline',
-      },
-      {
-        name: 'Medical Records',
-        icon_name: 'mdi-notebook',
-      },
-      {
-        name: 'Care Wallet',
-        icon_name: 'mdi-wallet',
-      },
-      {
-        name: 'Messages',
-        icon_name: 'mdi-chat',
-      },
-      {
-        name: 'Resources',
-        icon_name: 'mdi-semantic-web',
-      },
-    ]
-    const secondSetOfLinks = [
-      {
-        name: 'Account Settings',
-        icon_name: 'mdi-cog-outline',
-      },
-      {
-        name: 'Contact Support',
-        icon_name: 'mdi-card-account-phone-outline',
-      },
-      {
-        name: 'Logout',
-        icon_name: 'mdi-logout',
-      },
-    ]
     return {
       drawer: true,
       fixed: true,
-      firstSetOfLinks,
-      secondSetOfLinks,
+      first: firstSetOfLinks,
+      second: secondSetOfLinks,
       snackbar: false,
     }
   },
@@ -166,7 +128,9 @@ export default {
 </script>
 
 <style>
-.nav-bar {
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,700&display=swap');
+
+.navigation_bar {
   height: 100px;
   padding: 1% 0;
 }
