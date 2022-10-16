@@ -11,7 +11,7 @@ declare module '*/auth.gql' {
 declare module '*/createRecord.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const add_medical_record: DocumentNode;
+  export const addMedicalRecord: DocumentNode;
 
   export default defaultDocument;
 }

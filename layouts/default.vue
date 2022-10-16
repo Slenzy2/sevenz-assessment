@@ -64,7 +64,12 @@
       <v-menu bottom left :offset-y="true">
         <template #activator="{ on, attrs }">
           <v-avatar class="mx-3">
-            <img src="profile_pic.svg" v-on="on" v-bind="attrs" alt="John" />
+            <img
+              src="profile_pic.svg"
+              alt="user profile pic"
+              v-bind="attrs"
+              v-on="on"
+            />
           </v-avatar>
         </template>
 

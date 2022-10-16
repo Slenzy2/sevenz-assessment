@@ -1,4 +1,4 @@
-mutation add_medical_record(
+mutation addMedicalRecord(
   $investigations: [ID!]!
   $ctscan: String!
   $mri: String!
