@@ -13,20 +13,12 @@
             :large="true"
             class="my-4 font-weight-bold"
             color="primary"
+            :loading="load"
             @click="signIn"
           >
             Login
           </v-btn>
 
-          <!-- <v-btn
-            depressed
-            :large="true"
-            class="my-4 font-weight-bold"
-            color="primary"
-            @click="getToken"
-          >
-            get Token
-          </v-btn> -->
           <v-spacer />
         </v-row>
       </v-card>
@@ -36,22 +28,23 @@
 
 <script lang="ts">
 import Vue from 'vue'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ApolloHelpers } from '@nuxtjs/apollo/types/index'
 import login from '../gql/queries/auth.gql'
 export default Vue.extend({
   name: 'IndexPage',
   data() {
     const apolloHelpers: any = this.$apolloHelpers
-    const loading: boolean = false
+    const load: boolean = false
     return {
       apolloHelpers,
-      loading,
+      load,
     }
   },
   methods: {
     async signIn() {
       if (!this.apolloHelpers.getToken()) {
-        this.loading = true
+        this.load = true
         const res = await this.$apollo
           .mutate({
             mutation: login,
@@ -65,8 +58,9 @@ export default Vue.extend({
           })
         await this.apolloHelpers.onLogin(res)
         if (res) {
-          this.$router.push('/dashbord')
+          this.$router.push('/dashboard')
         }
+        this.load = false
       } else {
         this.$router.push('/dashboard')
       }
