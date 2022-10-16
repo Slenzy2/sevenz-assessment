@@ -79,8 +79,6 @@ export default Vue.extend({
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
-
 .homepage {
   width: 100%;
   height: 100%;
@@ -90,7 +88,6 @@ export default Vue.extend({
 }
 .card {
   width: 60%;
-  /* height: 60%; */
   border-radius: 25px;
   margin: auto;
   padding: 5%;
