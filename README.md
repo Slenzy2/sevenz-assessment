@@ -37,3 +37,33 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+
+## Directories/Folders Structure
+
+### `gql`
+
+This directory contains all the project's Graphql queries and mutations.
+
+### `layouts`
+
+This is where the layout of the app is located. Layout comprises of the Navigation Bar, Sidebar, and Main page view.
+
+### `pages`
+
+This directory contains the application views and routes.
+
+### `types`
+
+The types directory contains all generated types for the project to work well with typescript.
+
+### `static`
+
+This directory contains static files such as images used in the project.
+
+### `Utils`
+
+This directory contains small parts of the project which were exported and imported where need.
+
+### `Other Directories/Folders`
+
+All other directories not metioned are the default directories created with Nuxt by default.
