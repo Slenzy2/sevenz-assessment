@@ -10,6 +10,7 @@ Technologies used are:
 - Vuetify (UI Library)
 - Typescript
 - Graphql(Apollo Client)
+- Animate.css
 
 Pages available:
 
